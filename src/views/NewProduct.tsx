@@ -1,4 +1,4 @@
-import { ActionFunctionArgs, Form, Link, useActionData } from "react-router-dom";
+import { ActionFunctionArgs, Form, Link, redirect, useActionData } from "react-router-dom";
 import ErrorMessage from "../components/ErrorMessage";
 import { addProduct } from "../services/ProductService";
 
@@ -15,9 +15,9 @@ export async function action({ request }: ActionFunctionArgs) {
     return error
   }
 
-  addProduct(data)
+  await addProduct(data)
 
-  return {}
+  return redirect('/')
 }
 
 export default function NewProduct() {
@@ -40,7 +40,7 @@ export default function NewProduct() {
 
       </div>
 
-    {error && <ErrorMessage>{error}</ErrorMessage>}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
 
       <Form
         className="mt-10"
