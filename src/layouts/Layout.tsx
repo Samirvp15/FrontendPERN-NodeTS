@@ -5,9 +5,20 @@ export default function Layout() {
   return (
     <>
 
-        <div>Desde Layout</div>
+        <header className="bg-slate-700">
+            <div className="mx-auto max-w-6xl py-10">
+                <h1 className=" text-4xl font-extrabold text-white">
+                    Administrador de Productos
+                </h1>
+            </div>
+        </header>
 
+
+        <main  className="mx-auto max-w-6xl p-10 bg-white shadow">
         <Outlet />
+
+        </main>
+
     
     </>
   )
