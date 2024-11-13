@@ -24,7 +24,6 @@ export default function NewProduct() {
 
   const error = useActionData() as string
 
-  console.log(error)
   return (
     <>
 
