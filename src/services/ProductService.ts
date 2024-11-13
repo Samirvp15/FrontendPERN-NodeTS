@@ -1,6 +1,7 @@
 import { safeParse } from "valibot";
 import { DraftProductSchema, Product, ProductSchema, ProductsSchema } from "../types";
 import axios from "axios";
+import { toBoolean } from "../utils";
 
 
 
@@ -37,15 +38,15 @@ export async function addProduct(data: ProductData) {
 
 
 export async function getProducts() {
-    
+
     try {
 
         const url = `${import.meta.env.VITE_API_URL}/api/products`
-        const {data} = await axios.get(url)
+        const { data } = await axios.get(url)
         const result = safeParse(ProductsSchema, data.data)
-        if(result.success){
+        if (result.success) {
             return result.output
-        }else{
+        } else {
             throw new Error('Hubo un error ...')
         }
 
@@ -57,15 +58,15 @@ export async function getProducts() {
 
 
 export async function getProductById(id: Product['id']) {
-    
+
     try {
 
         const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`
-        const {data} = await axios.get(url)
+        const { data } = await axios.get(url)
         const result = safeParse(ProductSchema, data.data)
-        if(result.success){
+        if (result.success) {
             return result.output
-        }else{
+        } else {
             throw new Error('Hubo un error ...')
         }
 
@@ -74,4 +75,24 @@ export async function getProductById(id: Product['id']) {
     }
 }
 
+export async function updateProduct(data: ProductData, id: Product['id']) {
 
+    try {
+
+        //VALIDAR DATOS
+        const result = safeParse(ProductSchema, {
+            id,
+            name: data.name,
+            price: +data.price,
+            availability: toBoolean(data.availability.toString())
+        })
+
+        if (result.success) {
+            const url = `${import.meta.env.VITE_API_URL}/api/products/${id}`
+            await axios.put(url, result.output)
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
+}

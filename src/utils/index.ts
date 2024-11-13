@@ -8,3 +8,6 @@ export function formatCurrency(amount: number){
     }).format(amount)
 }
 
+export function toBoolean(str: string){
+    return str.toLowerCase() === 'true'
+}
