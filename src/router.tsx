@@ -23,7 +23,7 @@ export const router = createBrowserRouter([{
             action: newProductAction
         },
         {
-            path: 'productos/:id/editar', //ROA Pattern Resource Oriented Design
+            path: 'productos/:id/editar',
             element: <EditProduct />,
             loader: editProductLoader,
             action: editProductAction
